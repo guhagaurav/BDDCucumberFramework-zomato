@@ -13,13 +13,12 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import cucumber.api.CucumberOptions;
-import cucumber.api.java.Before;
 import cucumber.api.testng.CucumberFeatureWrapper;
 import cucumber.api.testng.TestNGCucumberRunner;
 
 //@RunWith(Cucumber.class)
 @CucumberOptions(
-		features = {"src/main/java/Features"},
+		features = {"src/main/java/Features/ZomatoAPI.feature"},
 		glue={"stepDefinition"},
 		plugin = {"pretty", "html:target/cucumber-html-report", "json:target/cucumber-json-report.json"},
 		dryRun = false,
@@ -33,9 +32,9 @@ public class TestNGRunCucumberTestRunner {
 	DesiredCapabilities capabilities = new DesiredCapabilities();
 	private TestNGCucumberRunner testNGCucumberRunner;
 	public static WebDriver driver;
-	
+
 	@BeforeClass
-	@Parameters(value = { "myBrowser"})
+	@Parameters({ "myBrowser" })
 	public void setupBrowser(String myBrowser) throws Exception {
 		if (System.getProperty("os.name").contains("Window")) {
 			if (myBrowser.equalsIgnoreCase("firefox")) {
@@ -44,7 +43,6 @@ public class TestNGRunCucumberTestRunner {
 				driver = new FirefoxDriver();
 				driver.manage().window().maximize();
 				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		
 			} else if (myBrowser.equalsIgnoreCase("chrome")) {
 				System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\src\\main\\java\\resources\\chromedriver.exe");
 				driver = new ChromeDriver();
@@ -54,11 +52,7 @@ public class TestNGRunCucumberTestRunner {
 		}
 
 	}
-	
-	public WebDriver getDriver() {
-		return driver;
-	}
-	
+
 	@Test(groups = "cucumber features", description = "Runs Cucumber Features", dataProvider = "features")
 	public void feature(CucumberFeatureWrapper cucumberFeature) throws Throwable {
 	       testNGCucumberRunner.runCucumber(cucumberFeature.getCucumberFeature());
@@ -81,6 +75,3 @@ public class TestNGRunCucumberTestRunner {
 	}
 
 }
-
-   //OR Condition : {"@SmokeTest, @End2End"} - Execute Scenario which have any of mentioned Tag
-   // AND Condition: {"@SmokeTest", "@End2End"} - Execute Scenario if and if Scenario have all mentioned tags

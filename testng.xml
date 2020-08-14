@@ -6,11 +6,11 @@
         <classes>
             <class name="MyTestRunner.TestNGRunCucumberTestRunner" />
         </classes>
-    </test> 
-      <test name="FirefoxTest">
+    </test>
+<!--          <test name="FirefoxTest">
         <parameter name="myBrowser" value="firefox" />
         <classes>
             <class name="MyTestRunner.TestNGRunCucumberTestRunner" />
         </classes>
-    </test> 
+    </test> -->
 </suite>
